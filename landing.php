@@ -241,7 +241,8 @@ body { font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin:0;
     </div>
 </footer>
 
-<!-- Bootstrap JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
