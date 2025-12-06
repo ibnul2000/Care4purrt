@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Care4Purrt</title>
+
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #6a5af9, #7acbff);
+            font-family: "Poppins", sans-serif;
+            padding: 40px 0;
+        }
+
+        .wizard-card {
+            max-width: 650px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.7s ease;
+        }
+
+        .wizard-card img {
+            width: 130px;
+            display: block;
+            margin: 0 auto 15px;
+        }
+
+        h2 {
+            text-align: center;
+            font-weight: 700;
+            color: #6a5af9;
+            margin-bottom: 25px;
+        }
+
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        .input-group-text {
+            background-color: #6a5af9;
+            color: white;
+            border: none;
+            border-radius: 15px 0 0 15px;
+        }
+
+        .form-control {
+            border-radius: 0 15px 15px 0;
+            height: 46px;
+            border: 2px solid #d8d8d8;
+        }
+
+        .form-control:focus {
+            border-color: #6a5af9;
+            box-shadow: 0 0 8px rgba(106, 90, 249, 0.3);
+        }
+
+        textarea {
+            border-radius: 15px !important;
+        }
+
+        .btn-modern {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            background: linear-gradient(135deg, #6a5af9, #3fb4ff);
+            color: white;
+            border: none;
+            font-weight: bold;
+        }
+
+        .btn-modern:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(15px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wizard-card">
+
+    <img src="https://i.ibb.co/sbwqjfx/pet-doctor.png" alt="Pet Doctor">
+
+    <h2>Book Your Appointment</h2>
+
+    <?php if (isset($appointment_message)) { echo "<div class='alert alert-info'>$appointment_message</div>"; } ?>
+
+    <form method="POST" action="book_appointment.php">
+
+        <!-- STEP 1: SELECT DOCTOR -->
+        <div class="step active" id="step1">
+            <div class="form-group">
+                <label>Select Doctor</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-user-doctor"></i></span>
+                    <select name="doctor" class="form-control" required>
+                        <?php while ($doctor = mysqli_fetch_assoc($result_doctors)) { ?>
+                            <option value="<?php echo $doctor['username']; ?>">
+                                <?php echo $doctor['name']; ?> — <?php echo $doctor['specialization']; ?>
+                            </option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <button type="button" class="btn-modern" onclick="nextStep()">Next</button>
+        </div>
+
+        <!-- STEP 2: PET DETAILS -->
+        <div class="step" id="step2">
+            <div class="form-group">
+                <label>Pet Type</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-paw"></i></span>
+                    <input type="text" name="pet_type" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pet Age (Years)</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
+                    <input type="number" name="pet_age" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Pet Problem</label>
+                <textarea name="pet_problem" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <button type="button" class="btn-modern mb-2" onclick="prevStep()">Previous</button>
+            <button type="button" class="btn-modern" onclick="nextStep()">Next</button>
+        </div>
+
+        <!-- STEP 3: APPOINTMENT DATE/TIME -->
+        <div class="step" id="step3">
+            <div class="form-group">
+                <label>Appointment Date</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                    <input type="date" name="appointment_date" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Appointment Time</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fa-solid fa-clock"></i></span>
+                    <input type="time" name="appointment_time" class="form-control" required>
+                </div>
+            </div>
+
+            <button type="button" class="btn-modern mb-2" onclick="prevStep()">Previous</button>
+            <button type="submit" class="btn-modern">Confirm Appointment</button>
+        </div>
+
+    </form>
+</div>
+
+<!-- JS FOR MULTI-STEP -->
+<script>
+    let currentStep = 1;
+
+    function nextStep() {
+        document.getElementById("step" + currentStep).classList.remove("active");
+        currentStep++;
+        document.getElementById("step" + currentStep).classList.add("active");
+    }
+
+    function prevStep() {
+        document.getElementById("step" + currentStep).classList.remove("active");
+        currentStep--;
+        document.getElementById("step" + currentStep).classList.add("active");
+    }
+</script>
+
+</body>
+</html>
