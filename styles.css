@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Appointment - Care4Purrt</title>
 
-    <!-- Bootstrap -->
+   
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Icons -->
@@ -157,7 +157,7 @@
             <button type="button" class="btn-modern" onclick="nextStep()">Next</button>
         </div>
 
-        <!-- STEP 3: APPOINTMENT DATE/TIME -->
+       
         <div class="step" id="step3">
             <div class="form-group">
                 <label>Appointment Date</label>
@@ -201,3 +201,4 @@
 
 </body>
 </html>
+
