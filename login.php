@@ -74,16 +74,8 @@ body {
     font-size: 22px; /* BIGGER base font */
 }
 
-/* FULL-SCREEN WIDE CARD */
-.login-card {
-    background: #ffffff;
-    border-radius: 35px;
-    padding: 70px 60px;
-    width: 95%;                  /* ALMOST FULL SCREEN */
-    max-width: 1400px;           /* But limited for desktops */
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    text-align: center;
-    transition: 0.3s ease;
+/* FULL-SCREEN WIDE CARD */  /* ALMOST FULL SCREEN */
+
 }
 .login-card:hover {
     transform: translateY(-5px);
@@ -91,7 +83,15 @@ body {
 
 /* Cute Pet Image */
 .pet-image {
-    width: 150px; /* BIGGER */
+    width: 150px; /* BIGGER */.login-card {
+    background: #ffffff;
+    border-radius: 35px;
+    padding: 70px 60px;
+    width: 95%;                 
+    max-width: 1400px;           /* But limited for desktops */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: 0.3s ease;
     margin-bottom: 30px;
 }
 
@@ -186,3 +186,4 @@ body {
 
 </body>
 </html>
+
