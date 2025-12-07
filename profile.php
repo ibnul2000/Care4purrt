@@ -190,3 +190,21 @@ body.dark-mode .profile-card { background: rgba(50,50,65,0.9); }
 </div>
 
 <button class="theme-btn" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i> Theme</button>
+
+<script>
+// Lottie cat animation
+lottie.loadAnimation({
+    container: document.getElementById('lottie-cat'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://assets6.lottiefiles.com/packages/lf20_5l6dlfqd.json' // Playful cat animation
+});
+
+function toggleTheme(){
+    document.body.classList.toggle('dark-mode');
+}
+</script>
+
+</body>
+</html>
