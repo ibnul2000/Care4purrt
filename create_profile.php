@@ -154,3 +154,72 @@ body.dark-mode .profile-card { background: rgba(50,50,65,0.9); }
     transition: 0.3s;
 }
 .theme-btn:hover { transform: scale(1.1); }
+
+
+@keyframes fadeIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="container-card">
+    <?php if($profile): ?>
+    <div class="profile-card">
+        <div id="lottie-cat"></div>
+        <img src="<?= $profile['profile_picture'] ?: 'https://via.placeholder.com/180' ?>" alt="Profile Picture" class="profile-pic">
+        <p><strong>Name:</strong> <?= htmlspecialchars($profile['name']) ?></p>
+        <p><strong>Contact:</strong> <?= htmlspecialchars($profile['contact_number']) ?></p>
+        <p><strong>Passport:</strong> <?= $profile['passport'] ?: 'Not Provided' ?></p>
+        <p><strong>Additional Info:</strong> <?= $profile['additional_info'] ?: 'No additional information.' ?></p>
+        <a href="#update-form" class="btn btn-modern"><i class="fa-solid fa-pen"></i> Edit Profile</a>
+        <a href="pet_owner_dashboard.php" class="btn btn-back btn-modern"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+    </div>
+    <?php endif; ?>
+
+    <h3 id="update-form"><?= $profile ? 'Update Your Profile' : 'Create Your Profile' ?></h3>
+    <?php if($msg != ""): ?>
+        <div class="alert alert-success"><?= htmlspecialchars($msg) ?></div>
+    <?php endif; ?>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" name="name" class="form-control" value="<?= $profile['name'] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label>Contact Number:</label>
+            <input type="text" name="contact_number" class="form-control" value="<?= $profile['contact_number'] ?? '' ?>" required>
+        </div>
+        <div class="form-group">
+            <label>Passport (Optional):</label>
+            <input type="text" name="passport" class="form-control" value="<?= $profile['passport'] ?? '' ?>">
+        </div>
+        <div class="form-group">
+            <label>Profile Picture (Optional):</label>
+            <input type="file" name="profile_picture" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Additional Info:</label>
+            <textarea name="additional_info" class="form-control" rows="4"><?= $profile['additional_info'] ?? '' ?></textarea>
+        </div>
+        <button type="submit" class="btn btn-modern"><?= $profile ? 'Update Profile' : 'Save Profile' ?></button>
+    </form>
+</div>
+
+<button class="theme-btn" onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i> Theme</button>
+
+<script>
+// Lottie cat animation
+lottie.loadAnimation({
+    container: document.getElementById('lottie-cat'),
+    renderer: 'svg',
+    loop: true,
+    autoplay: true,
+    path: 'https://assets6.lottiefiles.com/packages/lf20_5l6dlfqd.json' // Playful cat animation
+});
+
+function toggleTheme(){
+    document.body.classList.toggle('dark-mode');
+}
+</script>
+
+</body>
+</html>
