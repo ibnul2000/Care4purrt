@@ -62,3 +62,95 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $profile = mysqli_fetch_assoc($result);
 }
 ?>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Owner Profile - Care4Purrt</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.4/lottie.min.js"></script>
+
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+    min-height: 100vh;
+    transition: 0.4s;
+    color: #333;
+}
+body.dark-mode { background: linear-gradient(135deg, #1f1c2c, #3a2c5f); color: #fff; }
+
+.container-card {
+    max-width: 1000px;
+    margin: 50px auto;
+    background: rgba(255,255,255,0.9);
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+    backdrop-filter: blur(15px);
+    animation: fadeIn 0.7s ease;
+}
+body.dark-mode .container-card { background: rgba(35,35,50,0.85); }
+
+.profile-card {
+    padding: 40px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+}
+body.dark-mode .profile-card { background: rgba(50,50,65,0.9); }
+
+.profile-pic {
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border: 4px solid #FFB199;
+    margin-bottom: 20px;
+}
+
+.profile-card p { font-size:1.2rem; margin: 12px 0; }
+
+.btn-modern {
+    padding: 16px 30px;
+    border-radius: 35px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #FF6F91, #FF9671);
+    color: white;
+    border: none;
+    margin: 6px;
+    transition: 0.3s;
+}
+.btn-modern:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.25); }
+
+.btn-back {
+    background: linear-gradient(135deg, #6A82FB, #FC5C7D);
+}
+
+#lottie-cat { width: 150px; height: 150px; margin: 0 auto 20px; }
+
+.theme-btn {
+    position: fixed; right: 20px; bottom: 20px;
+    padding: 14px 20px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background: #FF6F91;
+    color: white;
+    border: none;
+    transition: 0.3s;
+}
+.theme-btn:hover { transform: scale(1.1); }
