@@ -15,7 +15,14 @@ function ensure_dir($dir) {
     }
 }
 
-function is_image_upload_ok($file) {
+
+}
+
+function save_image($file, $destBase) {
+    [$ok, $extOrMsg] = is_image_upload_ok($file);
+    if (!$ok) return [false, $extOrMsg, null];
+
+    ensure_dir($destBase);function is_image_upload_ok($file) {
     if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) return [false, "No file or upload error."];
     if ($file['size'] > 5 * 1024 * 1024) return [false, "File too large (max 5MB)."];
     $finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -23,13 +30,6 @@ function is_image_upload_ok($file) {
     $allowed = ['image/jpeg'=>'jpg','image/png'=>'png','image/gif'=>'gif','image/webp'=>'webp'];
     if (!isset($allowed[$mime])) return [false, "Invalid image type. Use JPG/PNG/GIF/WEBP."];
     return [true, $allowed[$mime]];
-}
-
-function save_image($file, $destBase) {
-    [$ok, $extOrMsg] = is_image_upload_ok($file);
-    if (!$ok) return [false, $extOrMsg, null];
-
-    ensure_dir($destBase);
     $ext = $extOrMsg;
     $safeName = uniqid('', true) . '.' . $ext;
     $relative = rtrim($destBase, '/').'/'.$safeName;
